@@ -1,16 +1,14 @@
 {
     "technologies": {
-        "apis": [
-            "insert apis"
+        "languages": [
+            "Dart"
         ],
         "platforms": [
-            "insert platforms"
+            "Chromium"
         ],
-        "toolkits": [
-            "insert toolkits"
-        ]
+
     },
     "themes": [
-        "insert themes"
+        "Fractals"
     ]
 }
