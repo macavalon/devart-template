@@ -1,5 +1,5 @@
 # Project Title
-Bifurcational fractals
+Bifurcational fractals 
 
 ## Authors
 - Peter Richardson, @macavalon
