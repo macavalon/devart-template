@@ -11,8 +11,8 @@ const String ORANGE = "orange";
 const int SEED_RADIUS = 1;
 const int SCALE_FACTOR = 4;
 const num TAU = PI * 2;
-const int MAX_X = 600;
-const int MAX_Y = 600;
+const int MAX_X = 480;
+const int MAX_Y = 480;
 const num centerX = MAX_D / 2;
 const num centerY = centerX;
 
@@ -55,9 +55,24 @@ void drawLyapunov() {
   num seed_value = 0.5;
   num r = initial_r;
   
+  
+  
   num x_rrange = (end_r-initial_r);
   
+  num r_step = x_rrange/xmax;
+  
   int iterations = num.parse(iterations_slider.value);
+  
+  
+  num eps = 0.0005;
+  num sum = 0.0;
+  num xeps = 0.0;
+  
+  num lambda= 0.0;
+  
+  int cr = 0;
+  int cg = 0;
+  int cb = 0;
   
   while(r <= end_r)
   {
@@ -68,11 +83,13 @@ void drawLyapunov() {
     // r = 2, xplot = 2-2 = 0
     // r = 4, xplot = 4-2 = 2
     
+    // x coordinate represents value of r
+    //
     xplot = xmax*(r-initial_r)/x_rrange;
     x = seed_value;
-    num eps = 0.0005;
-    num xeps = x-eps;
-    num sum = 0.0;
+    
+    xeps = x-eps;
+    sum = 0.0;
     
     // calculate lyapunov exponent
    for (j = 0; j < iterations; j++)
@@ -84,42 +101,45 @@ void drawLyapunov() {
        num distance = (x-xeps).abs();
        sum += log(distance/eps);
    }
-   num lambda1 = (sum/iterations);
-   num lambda = (sum/iterations);
-   
-   int cr = 0;
-   int cg = 0;
-   
-   if(lambda < 0)
-   {
-    cr = 255;
-   }
-   else
-   {
-     cg = 255;
-   }
 
-   int cb = 0;
+   num lambda = (sum/iterations);/**50;*/
+ 
+   
+   // encode the colours
+
+   num lambdafloor = lambda.floor();
+   num lambdaremainderGreen = (lambda - lambdafloor)*255;
+   num lambdaremainderGreenfloor = lambdaremainderGreen.floor();
+   num lambdaremainderBlue = (lambdaremainderGreen-lambdaremainderGreenfloor)*255;
+   
+   cr = (255 -lambdafloor.abs()).clamp(0, 255);
+   cg = (lambdaremainderGreen).clamp(0, 255).floor();
+   cb = (lambdaremainderBlue).clamp(0, 255).floor();
+   
+   cb = 0;
+
+   
    
    for (k = 0; k < iterations; k++)
     {
        x = r*x*(1.0-x); 
        
        
-       
        yplot = ymax * (1.0-x);
-       m = xplot.round();
+       m = xplot.floor();
        
-       n = yplot.round();
+       n = yplot.floor();
        
        // colour is set by lyapunov exponent
        
        
        drawPixel(m,n,cr,cg,cb);
     }
-    
-   r += 0.0005;
-    
+   
+   // increment r in value no less than xcoord on screen!
+   //
+   r += r_step; 
+
   }
   
     
@@ -137,12 +157,4 @@ void drawPixel(num x, num y, int r, int g, int b) {
          ..stroke();
 }
 
-///void drawLine(num x1, num y1, int r, int g, int b) {
-///  context..beginPath()
-///         ..lineWidth = 2
- ///        ..setStrokeColorRgb(r,g,b,1.0)
- ///        ..strokeRect(x,y,SEED_RADIUS,SEED_RADIUS)
- ///        ..fill()
-  ///       ..closePath()
-  ///       ..stroke();
-///}
+
