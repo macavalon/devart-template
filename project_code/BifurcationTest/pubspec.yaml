@@ -1,5 +1,5 @@
 name: BifurcationTest
-author: Peter Ricchardson
+author: Peter Richardson
 description: A sample web application
 dependencies:
   browser: any
