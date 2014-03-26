@@ -13,12 +13,23 @@ const int SCALE_FACTOR = 4;
 const num TAU = PI * 2;
 const int MAX_X = 480;
 const int MAX_Y = 480;
-const num centerX = MAX_D / 2;
-const num centerY = centerX;
+const int MAX_X_PLOT = 500;
+const int MAX_Y_PLOT = 520;
+
+///double r = 2.0; /// bifurcation parameter
+num initial_r =2.0;
+num end_r = 4.0;
+
+//const num centerX = MAX_D / 2;
+//const num centerY = centerX;
 
 final InputElement iterations_slider = querySelector("#iterations_slider");
+final InputElement r_start_slider = querySelector("#r_start_slider");
+final InputElement r_end_slider = querySelector("#r_end_slider");
 
 final Element notes = querySelector("#notes");
+final Element notes1 = querySelector("#notes1");
+final Element notes2 = querySelector("#notes2");
 final num PHI = (sqrt(5) + 1) / 2;
 
 final CanvasRenderingContext2D context =
@@ -26,6 +37,8 @@ final CanvasRenderingContext2D context =
 
 void main() {
   iterations_slider.onChange.listen((e) => drawLyapunov());
+  r_start_slider.onChange.listen((e) => drawLyapunov());
+  r_end_slider.onChange.listen((e) => drawLyapunov());
   drawLyapunov();
 }
 
@@ -35,7 +48,7 @@ void drawLyapunov() {
   int xmax = MAX_X;
   int ymax = MAX_Y;
   
-  context.clearRect(0, 0, MAX_X, MAX_Y);
+  context.clearRect(0, 0, MAX_X_PLOT, MAX_Y_PLOT);
   
   int j =0;
   int k = 0;
@@ -48,22 +61,19 @@ void drawLyapunov() {
   
   
   
-  ///double r = 2.0; /// bifurcation parameter
-  num initial_r = 2.0;
-  num end_r = 4.0;
+  
   
   num seed_value = 0.5;
+  
+
+  int iterations = num.parse(iterations_slider.value);
+  initial_r = num.parse(r_start_slider.value);
+  end_r = num.parse(r_end_slider.value);
+  
   num r = initial_r;
   
-  
-  
   num x_rrange = (end_r-initial_r);
-  
   num r_step = x_rrange/xmax;
-  
-  int iterations = num.parse(iterations_slider.value);
-  
-  
   num eps = 0.0005;
   num sum = 0.0;
   num xeps = 0.0;
@@ -144,6 +154,12 @@ void drawLyapunov() {
   
     
   notes.text = "bifurcation iterations : ${iterations} ";
+  notes1.text = "rStart : ${initial_r}";
+  notes2.text = " rEnd : ${end_r}";
+  
+  drawXaxisLabels(1,2);
+    
+  
 }
 
 /// Draw a small circle representing a seed centered at (x,y).
@@ -155,6 +171,61 @@ void drawPixel(num x, num y, int r, int g, int b) {
          ..fill()
          ..closePath()
          ..stroke();
+}
+
+/// Draw a small circle representing a seed centered at (x,y).
+void drawXaxisLabels(num xstart, num xend) {
+  drawXaxis();
+  
+    //num initial_r = 3.5;
+    //num end_r = 4.0;
+    num x_rrange = (end_r-initial_r);
+    num rdrawstep = (x_rrange/10);
+    
+    for(num r=initial_r; r<=end_r;r+=rdrawstep)
+    {
+        num xplot = MAX_X*(r-initial_r)/x_rrange;
+        drawXaxisTick(xplot);
+        drawXaxisValue(xplot,r.toStringAsPrecision(3));
+    }
+  
+}
+
+void drawXaxis() {
+  context..beginPath()
+         ..lineWidth = 2
+         ..setStrokeColorRgb(0,0,0,1.0)
+         
+         ..strokeRect(0,MAX_Y_PLOT-20,MAX_X,2)
+         ..fill()
+         ..closePath()
+         ..stroke();
+}
+
+void drawXaxisTick(num xoffset) {
+
+  context..beginPath()
+         ..lineWidth = 2
+         ..setStrokeColorRgb(0,0,0,1.0)
+         
+         ..strokeRect(xoffset,MAX_Y_PLOT-20,2,10)
+         ..fill()
+         ..closePath()
+         ..stroke();
+}
+
+void drawXaxisValue(num xoffset, String xvalue) {
+  //String xval = xvalue.toString();
+  //context..beginPath()
+  //         ..lineWidth = 2
+  //         ..setStrokeColorRgb(0,255,255,1.0)
+  //         ..fillText(xval, xoffset, MAX_Y_PLOT, xval.length());
+  String line = "test";
+  context..lineWidth = 1
+           ..strokeStyle = "black"
+           ..strokeText(xvalue, xoffset, MAX_Y_PLOT);
+           //..fillStyle = "white"
+           //..fillText(line, xvalue, MAX_Y_PLOT);
 }
 
 
