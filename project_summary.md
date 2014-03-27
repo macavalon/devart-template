@@ -13,9 +13,7 @@ I decided to use Google Dart to implement the program.
 
 ## Link to Prototype
 
-[Properly Coloured Bifurcation Test](http://macavalon.com/devart/2ndBifurcationTest/bifurcationtest.html "Properly Coloured Bifurcation Test")
+[Bifurcation with Control](http://macavalon.com/devart/3rdBifurcationTest/bifurcationtest.html "Bifurcation with Control")
 
-[1st Bifurcation Test](http://macavalon.com/devart/1stBifurcationTest/bifurcationtest.html "1st Bifurcation Test")
 
-[1st Trial with Dart](http://macavalon.com/devart/1stTrial/bifurcationtest.html "1st Trial")
 

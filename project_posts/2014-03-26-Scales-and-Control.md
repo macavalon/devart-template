@@ -7,7 +7,7 @@ And to ensure understanding of what is being controlled, I've drawn an x-axis wi
 
 This now really allows you to explore the bifurcation fractal.
 
-![BifurcationTest3.PNG](../project_images/BifurcationTest3.PNG?raw=true "BifurcationTest3.PNG")
+![Scaled Bifurcation](../project_images/BifurcationTest3.PNG?raw=true "Scaled Bifurcation")
 
 Play with it yourself here : 
 
