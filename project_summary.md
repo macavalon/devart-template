@@ -13,7 +13,7 @@ I decided to use Google Dart to implement the program.
 
 ## Link to Prototype
 
-[Bifurcation with Control](http://macavalon.com/devart/3rdBifurcationTest/bifurcationtest.html "Bifurcation with Control")
+[Bifurcation with Control](http://macavalon.com/devart/Finale/bifurcationtest.html "Bifurcation with Control")
 
 
 
