@@ -25,19 +25,14 @@ p {
   margin-right:auto;
   //border: 1px solid #ccc;
   background-color: #fff;
-}
-
-#summary {
-  float: left;
-}
-
-#notes {
-  float: right;
+  
+  #notes {
+  float: center;
   width: 120px;
   text-align: left;
 }
 #notes1 {
-  float: right;
+  float: center;
   width: 120px;
   text-align: left;
 }
@@ -46,6 +41,18 @@ p {
   width: 120px;
   text-align: left;
 }
+#notes3 {
+  float: right;
+  width: 120px;
+  text-align: left;
+}
+}
+
+#summary {
+  float: left;
+}
+
+
 
 
 .error {
